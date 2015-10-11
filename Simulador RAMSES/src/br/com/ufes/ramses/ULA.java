@@ -7,9 +7,19 @@ public class ULA {
 	byte sel_alu;
 	byte n, z, c;
 	
+	public static void main(String[] args) {
+		
+	}
+	
 	/*Construtor*/
 	public ULA() {
 		
+	}
+	
+	public byte realizaOperação(byte codigoDaOperação) {
+		if(codigoDaOperação == (byte))
+		
+		return 0;
 	}
 	
 	//Getters e Setters

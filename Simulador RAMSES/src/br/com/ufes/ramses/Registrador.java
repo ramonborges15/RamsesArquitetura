@@ -27,6 +27,7 @@ public class Registrador {
 		
 		//System.out.print(f);
 	}
+	//
 	//Construtor
 	public Registrador() {
 	
