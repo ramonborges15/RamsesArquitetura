@@ -49,7 +49,7 @@ public class Registrador {
 	public void setCargaRegistrador(boolean cargaRegistrador) {
 		this.cargaRegistrador = cargaRegistrador;
 	}
-
+	
 	//Conversores
 	public static int bytesToInt(byte[] b) {
 		int value = 0;

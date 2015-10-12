@@ -2,12 +2,15 @@ package br.com.ufes.ramses;
 
 public class Multiplexador {
 	
-	byte s1, s2;
+	boolean s1, s2;
 	byte conteudo;
 	
-	/*Construtor*/	
-	public Multiplexador() {
+	public void carregaMultiplexador(Registrador ra, Registrador rb, Registrador rx) {
 		
+	}
+	
+	public byte getConteudo() {
+		return conteudo;
 	}
 	//
 }
