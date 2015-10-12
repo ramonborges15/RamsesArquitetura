@@ -16,9 +16,40 @@ public class ULA {
 		
 	}
 	
-	public byte realizaOperação(byte codigoDaOperação) {
-		if(codigoDaOperação == (byte))
-		
+	public void CargaEntradas(Multiplexador M1, Multiplexador M2){
+		this.entradaX = M1.getConteudo();
+		this.entradaY = M2.getConteudo();
+	}
+	
+	public byte realizaOperacao() {
+		if(sel_alu == (byte) 0){
+			this.saida = this.entradaX;
+		}
+		if(sel_alu == (byte)1){
+			this.saida = (byte)(entradaX + entradaY);
+		}
+		if(sel_alu == (byte)2){
+			this.saida = (byte)(entradaX - entradaY);
+		}
+		if(sel_alu == (byte)3){
+			this.saida = (byte)(entradaX & entradaY);
+		}
+		if(sel_alu == (byte)4){
+			this.saida = (byte)(entradaY | entradaX);
+		}
+		if(sel_alu == (byte)5){
+			//this.saida = (byte)(!entradaX);
+		}
+		if(sel_alu == (byte)6){
+			this.saida = (byte) (~entradaX);
+		}
+		if(sel_alu == (byte)7){
+			
+		}
+		if(sel_alu == (byte)8){
+			this.saida = (byte)(entradaY);
+		}
+				
 		return 0;
 	}
 	

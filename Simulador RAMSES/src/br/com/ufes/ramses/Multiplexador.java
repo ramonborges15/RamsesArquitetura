@@ -2,10 +2,10 @@ package br.com.ufes.ramses;
 
 public class Multiplexador {
 	
-	boolean s1, s2;
+	boolean s1, s2, s3, s4;
 	byte conteudo;
 	
-	public void carregaMultiplexador(Registrador ra, Registrador rb, Registrador rx) {
+	public void carregaMultiplexador1(Registrador ra, Registrador rb, Registrador rx) {
 		if(this.s1 == false){
 			if(this.s2 == false){
 				this.conteudo = ra.getConteudo();
@@ -14,6 +14,18 @@ public class Multiplexador {
 			}	
 		}else if(this.s2==true){
 				this.conteudo = rx.getConteudo();		
+		}
+	}
+	// criei essa fução para ficar mais legivel, na verdade não prescisaria
+	public void carregaMultiplexador2(Registrador raux, Registrador pc, Registrador rdm) {
+		if(this.s3 == false){
+			if(this.s4 == false){
+				this.conteudo = raux.getConteudo();
+			}else{ 
+				this.conteudo = pc.getConteudo();
+			}	
+		}else if(this.s4==true){
+				this.conteudo = rdm.getConteudo();		
 		}
 	}
 	
