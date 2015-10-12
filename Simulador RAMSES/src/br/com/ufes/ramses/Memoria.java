@@ -6,10 +6,11 @@ public class Memoria {
 	Registrador rem;
 	byte read, write;
 	
+	
 	/*Construtor*/
 	public Memoria() {
 		
 	}
-	//
+	//Modificacao
 	
 }
