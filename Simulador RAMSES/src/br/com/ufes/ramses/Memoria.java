@@ -4,7 +4,7 @@ public class Memoria {
 	
 	Registrador rdm;
 	Registrador rem;
-	byte read, write;
+	boolean read, write;
 	
 	
 	/*Construtor*/
