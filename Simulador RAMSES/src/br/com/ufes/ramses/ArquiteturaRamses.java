@@ -28,7 +28,7 @@ public class ArquiteturaRamses {
 				
 				microinstrucoes.add(linha);
 				linha = lerArq.readLine(); 
-			} while(linha != null)
+			}
 			arq.close(); 
 		
 		} catch (IOException e) { 
