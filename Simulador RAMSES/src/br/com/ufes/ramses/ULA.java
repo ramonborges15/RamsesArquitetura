@@ -2,13 +2,14 @@ package br.com.ufes.ramses;
 
 public class ULA {
 	
-	byte entradaX, entradaY;
-	byte saida;
-	byte sel_alu;
-	byte n, z, c;
+	Byte entradaX, entradaY;
+	Byte saida;
+	Byte sel_alu;
+	Byte n, z, c;
 	
 	public static void main(String[] args) {
-		
+		Byte a = 4;
+		System.out.println(a>>1);
 	}
 	
 	/*Construtor*/
@@ -21,33 +22,34 @@ public class ULA {
 		this.entradaY = M2.getConteudo();
 	}
 	
-	public byte realizaOperacao() {
-		if(sel_alu == (byte) 0){
-			this.saida = this.entradaX;
+	//TODO Observar se operacao gera Carry, zero ou negativo e setar as variaveis n, c, z 
+	public Byte realizaOperacao() {
+		if(sel_alu.intValue() == 0){
+			this.saida = (byte) (entradaX + entradaY);
 		}
-		if(sel_alu == (byte)1){
-			this.saida = (byte)(entradaX + entradaY);
-		}
-		if(sel_alu == (byte)2){
+		if(sel_alu.intValue() == 1){
 			this.saida = (byte)(entradaX - entradaY);
 		}
-		if(sel_alu == (byte)3){
+		if(sel_alu.intValue() == 2){
 			this.saida = (byte)(entradaX & entradaY);
 		}
-		if(sel_alu == (byte)4){
+		if(sel_alu.intValue() == 3){
 			this.saida = (byte)(entradaY | entradaX);
 		}
-		if(sel_alu == (byte)5){
-			//this.saida = (byte)(!entradaX);
+		if(sel_alu.intValue() == 4){
+			//TODO fazer not.
 		}
-		if(sel_alu == (byte)6){
+		if(sel_alu.intValue() == 5){
 			this.saida = (byte) (~entradaX);
 		}
-		if(sel_alu == (byte)7){
-			
+		if(sel_alu.intValue() == 6){
+			this.saida = (byte) (entradaX >> 1);
+		}
+		if(sel_alu.intValue() == 7){
+			this.saida = (byte)(entradaY);
 		}
 		if(sel_alu == (byte)8){
-			this.saida = (byte)(entradaY);
+			this.saida = this.entradaX;
 		}
 				
 		return 0;

@@ -15,21 +15,6 @@ public class Registrador {
 	}
 	
 	private void testes() {
-		int i = 1;
-		int j = 3;
-		byte bin = (byte) i; 
-		byte bin2 = (byte) j; 
-	
-		byte c = (byte) (~bin);
-		System.out.print(c);
-		byte h = (byte)21;
-		System.out.print(h);
-		
-		//System.out.print(f);
-	}
-	//
-	//Construtor
-	public Registrador() {
 	
 	}
 	

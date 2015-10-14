@@ -6,17 +6,17 @@ public class Multiplexador {
 	byte conteudo;
 	
 	public void carregaMultiplexador1(Registrador ra, Registrador rb, Registrador rx) {
-		if(this.s1 == false){
-			if(this.s2 == false){
+		if(this.s1 == false) {
+			if(this.s2 == false) {
 				this.conteudo = ra.getConteudo();
-			}else{ 
+			}else { 
 				this.conteudo = rb.getConteudo();
 			}	
 		}else if(this.s2==true){
 				this.conteudo = rx.getConteudo();		
 		}
 	}
-	// criei essa fução para ficar mais legivel, na verdade não prescisaria
+	// criei essa funcao para ficar mais legivel, na verdade nao prescisaria
 	public void carregaMultiplexador2(Registrador raux, Registrador pc, Registrador rdm) {
 		if(this.s3 == false){
 			if(this.s4 == false){
@@ -32,7 +32,7 @@ public class Multiplexador {
 	public byte getConteudo() {
 		return conteudo;
 	}
-	//
+	
 
 	public boolean getS1() {
 		return s1;
