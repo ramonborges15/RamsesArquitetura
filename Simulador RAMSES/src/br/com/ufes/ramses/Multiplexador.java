@@ -49,6 +49,18 @@ public class Multiplexador {
 	public void setS2(boolean s2) {
 		this.s2 = s2;
 	}
+	public boolean getS3() {
+		return s3;
+	}
+	public void setS3(boolean s3) {
+		this.s3 = s3;
+	}
+	public boolean getS4() {
+		return s4;
+	}
+	public void setS4(boolean s4) {
+		this.s4 = s4;
+	}
 	
 	
 }
