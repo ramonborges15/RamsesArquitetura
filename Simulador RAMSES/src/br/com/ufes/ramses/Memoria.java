@@ -20,4 +20,22 @@ public class Memoria {
 	public void leitura() {
 		rdm.conteudo = dados[rem.conteudo];
 	}
+	
+		
+	public boolean getRead() {
+		return read;
+	}
+
+	public void setRead(boolean read) {
+		this.read = read;
+	}
+
+	public boolean getWrite() {
+		return write;
+	}
+
+	public void setWrite(boolean write) {
+		this.write = write;
+	}
+
 }

@@ -17,9 +17,9 @@ public class ULA {
 		
 	}
 	
-	public void CargaEntradas(Multiplexador M1, Multiplexador M2){
-		this.entradaX = M1.getConteudo();
-		this.entradaY = M2.getConteudo();
+	public void CargaEntradas(Multiplexador Mux){
+		this.entradaX = Mux.getConteudo();
+		this.entradaY = Mux.getConteudo2();
 	}
 	
 	//TODO Observar se operacao gera Carry, zero ou negativo e setar as variaveis n, c, z 

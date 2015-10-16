@@ -39,8 +39,17 @@ public class ArquiteturaRamses {
 		
 		return microinstrucoes;
 	}
+
+	public void imprimeParcial(Registrador RA,Registrador RB,Registrador RX, RegistradorPC PC){
+		
+		System.out.println(RA.toString());
+		System.out.println(RB.toString());
+		System.out.println(RX.toString());
+		System.out.println(PC.toString());
+	}
 	
-	public void carregarValor(Registrador RA,Registrador RB,Registrador RX, Registrador RAUX, Multiplexador MUX){
+	public void carregarValor(Registrador RA,Registrador RB,Registrador RX, Registrador RAUX, Multiplexador MUX,
+			RegistradorEstados Estado, RegistradorPC PC, Registrador RI, Memoria Mem, ULA ALU ){
 		// System.out.println(A.toString());
         for(int i=0;i<microinstrucoes.size();i++){
             System.out.print(microinstrucoes.size());
@@ -77,10 +86,69 @@ public class ArquiteturaRamses {
                 	MUX.setS4(true);
                 }else 
                 	MUX.setS4(false);
+                if(letras[12] == '1'){
+                	Estado.setCarga_N(true);
+                }else 
+                	Estado.setCarga_N(false);
+                if(letras[13] == '1'){
+                	Estado.setCarga_Z(true);
+                }else 
+                	Estado.setCarga_Z(false);
+                if(letras[14] == '1'){
+                	Estado.setCarga_C(true);
+                }else 
+                	Estado.setCarga_C(false);
+                if(letras[15] == '1'){
+                	PC.setIncrementa(true);
+                }else 
+                	PC.setIncrementa(false);
+                if(letras[16] == '1'){
+                	PC.setCargaRegistradorPC(true);
+                }else 
+                	PC.setCargaRegistradorPC(false);
+                if(letras[17] == '1'){
+                	RI.setCargaRegistrador(true);
+                }else 
+                	RI.setCargaRegistrador(false);
+                if(letras[18] == '1'){
+                	Mem.rem.setCargaRegistrador(true); 
+                }else 
+                	Mem.rem.setCargaRegistrador(false);
+                if(letras[19] == '1'){
+                	Mem.setRead(true); 
+                }else 
+                	Mem.setRead(false);
+                if(letras[19] == '1'){
+                	Mem.setWrite(true); 
+                }else 
+                	Mem.setWrite(false);
+                if(letras[21] == '1'){
+                	Mem.rdm.setCargaRegistrador(true); 
+                }else 
+                	Mem.rdm.setCargaRegistrador(false);
+               
+                MUX.carregaMultiplexador1(RA, RB, RX); 
+                MUX.carregaMultiplexador2(RAUX, PC, Mem.rdm);
+                ALU.CarregaEntradas(MUX)
+                RA.CarregaRegistrador(ALU);
+                RB.CarregaRegistrador(ALU);
+                RX.CarregaRegistrador(ALU);
+                PC.carregaregistradorPC(ALU);
+                PC.incrementaPC();
+                RAUX.CarregaRegistrador(ALU);
+                Mem.rdm.CarregaRegistrador(ALU);
+                Mem.rem.CarregaRegistrador(ALU);
+                
+                
+                
+                // if(//botão de estado){
+                //MUX.carregaMultiplexador1(ra, rb, rx);       
+                imprimeParcial(RA, RB, RX,PC);        
+               //       }
         }
 
 	}
-		
+	
 }
 	
 
