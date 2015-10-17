@@ -4,7 +4,7 @@ public class ULA {
 	
 	Byte entradaX, entradaY;
 	Byte saida;
-	Byte sel_alu;
+	String sel_alu;
 	Byte n, z, c;
 	
 	public static void main(String[] args) {
@@ -18,7 +18,6 @@ public class ULA {
 		this.entradaX = (byte)0;
 		this.entradaY = (byte)0;
 		this.saida = (byte)0;
-		this.sel_alu = (byte)0;
 		this.n = (byte)0;
 		this.z = (byte)0;
 		this.c = (byte)0;
@@ -31,36 +30,35 @@ public class ULA {
 	
 	
 	//TODO Observar se operacao gera Carry, zero ou negativo e setar as variaveis n, c, z 
-	public Byte realizaOperacao() {
-		if(sel_alu.intValue() == 0){
+	public void realizaOperacao(String sel_alu) {
+		if(sel_alu.equals("0000")){
 			this.saida = (byte) (entradaX + entradaY);
 		}
-		if(sel_alu.intValue() == 1){
+		if(sel_alu.equals("0001")){
 			this.saida = (byte)(entradaX - entradaY);
 		}
-		if(sel_alu.intValue() == 2){
+		if(sel_alu.equals("0010")){
 			this.saida = (byte)(entradaX & entradaY);
 		}
-		if(sel_alu.intValue() == 3){
+		if(sel_alu.equals("0011")){
 			this.saida = (byte)(entradaY | entradaX);
 		}
-		if(sel_alu.intValue() == 4){
-			//TODO fazer not.
-		}
-		if(sel_alu.intValue() == 5){
+		if(sel_alu.equals("0100")){
 			this.saida = (byte) (~entradaX);
 		}
-		if(sel_alu.intValue() == 6){
+		if(sel_alu.equals("0101")){
+			this.saida = (byte)(-entradaX);
+		}
+		if(sel_alu.equals("0110")){
 			this.saida = (byte) (entradaX >> 1);
 		}
-		if(sel_alu.intValue() == 7){
+		if(sel_alu.equals("0111")){
 			this.saida = (byte)(entradaY);
 		}
-		if(sel_alu == (byte)8){
+		if(sel_alu.equals("1000")){
 			this.saida = this.entradaX;
 		}
 				
-		return 0;
 	}
 	
 	//Getters e Setters
@@ -88,13 +86,6 @@ public class ULA {
 		this.saida = saida;
 	}
 
-	public byte getSel_alu() {
-		return sel_alu;
-	}
-
-	public void setSel_alu(byte sel_alu) {
-		this.sel_alu = sel_alu;
-	}
 
 	public byte getN() {
 		return n;

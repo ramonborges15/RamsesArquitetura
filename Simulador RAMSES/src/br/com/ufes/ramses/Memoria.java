@@ -14,7 +14,7 @@ public class Memoria {
 	//TODO Pensar em uma maneira de receber dados de entrada e alocar na memoria.
 	
 	public  void acessoAMemoria(){
-		if(write == true && read == true){
+		if(write == true || read == true){
 			contadorDeMemoria++;
 		}
 	}

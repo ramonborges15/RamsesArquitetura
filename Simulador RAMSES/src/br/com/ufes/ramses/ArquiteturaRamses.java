@@ -1,11 +1,9 @@
 package br.com.ufes.ramses;
 
-import java.awt.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ArquiteturaRamses {
 	
@@ -127,19 +125,22 @@ public class ArquiteturaRamses {
                 	Mem.rdm.setCargaRegistrador(true); 
                 }else 
                 	Mem.rdm.setCargaRegistrador(false);
-                //
-                StringBuilder sb =  new  StringBuilder (); 
-                sb . append (letras[8] ); 
-                sb . append (letras[9] ); 
-                sb . append (letras[10]);
-                sb . append (letras[11]);
-              //  ALU.sel_alu = sb.;
+                
+               
+               // Construção da seleção ALU 
+                                
+                StringBuilder sb =  new  StringBuilder(); 
+                sb.append(letras[8] ); 
+                sb.append (letras[9] ); 
+                sb.append (letras[10]);
+                sb.append (letras[11]);
+                
                 
                 
                 MUX.carregaMultiplexador1(RA, RB, RX); 
                 MUX.carregaMultiplexador2(RAUX, PC, Mem.rdm);
                 ALU.CarregaEntradas(MUX);
-                ALU.realizaOperacao();
+                ALU.realizaOperacao(sb.toString());
                 RA.CarregaRegistrador(ALU);
                 RB.CarregaRegistrador(ALU);
                 RX.CarregaRegistrador(ALU);

@@ -1,6 +1,5 @@
 package br.com.ufes.ramses;
 
-import java.nio.ByteBuffer;
 
 public class Registrador {
 	
