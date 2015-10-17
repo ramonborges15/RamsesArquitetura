@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class ArquiteturaRamses {
 	
+	static Integer contadorDeTempo = 0;
 	static String nomeDoArquivo;
 	ArrayList<String> microinstrucoes = new ArrayList<String>();
 	
@@ -49,7 +50,7 @@ public class ArquiteturaRamses {
 	}
 	
 	public void carregarValor(Registrador RA,Registrador RB,Registrador RX, Registrador RAUX, Multiplexador MUX,
-			RegistradorEstados Estado, RegistradorPC PC, Registrador RI, Memoria Mem, ULA ALU ){
+			RegistradorEstados Estado, RegistradorPC PC, Registrador RI, Memoria Mem, ULA ALU){
 		// System.out.println(A.toString());
         for(int i=0;i<microinstrucoes.size();i++){
             System.out.print(microinstrucoes.size());
@@ -118,7 +119,7 @@ public class ArquiteturaRamses {
                 	Mem.setRead(true); 
                 }else 
                 	Mem.setRead(false);
-                if(letras[19] == '1'){
+                if(letras[20] == '1'){
                 	Mem.setWrite(true); 
                 }else 
                 	Mem.setWrite(false);
@@ -126,10 +127,19 @@ public class ArquiteturaRamses {
                 	Mem.rdm.setCargaRegistrador(true); 
                 }else 
                 	Mem.rdm.setCargaRegistrador(false);
-               
+                //
+                StringBuilder sb =  new  StringBuilder (); 
+                sb . append (letras[8] ); 
+                sb . append (letras[9] ); 
+                sb . append (letras[10]);
+                sb . append (letras[11]);
+              //  ALU.sel_alu = sb.;
+                
+                
                 MUX.carregaMultiplexador1(RA, RB, RX); 
                 MUX.carregaMultiplexador2(RAUX, PC, Mem.rdm);
-                ALU.CarregaEntradas(MUX)
+                ALU.CarregaEntradas(MUX);
+                ALU.realizaOperacao();
                 RA.CarregaRegistrador(ALU);
                 RB.CarregaRegistrador(ALU);
                 RX.CarregaRegistrador(ALU);
@@ -138,8 +148,12 @@ public class ArquiteturaRamses {
                 RAUX.CarregaRegistrador(ALU);
                 Mem.rdm.CarregaRegistrador(ALU);
                 Mem.rem.CarregaRegistrador(ALU);
-                
-                
+                Mem.leitura();
+                Mem.escrita();
+               
+                // para fazer as estatisticas
+                Mem.acessoAMemoria();
+                contadorDeTempo++;
                 
                 // if(//botão de estado){
                 //MUX.carregaMultiplexador1(ra, rb, rx);       

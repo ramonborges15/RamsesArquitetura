@@ -73,5 +73,4 @@ public class Multiplexador {
 		this.s4 = s4;
 	}
 	
-	
 }

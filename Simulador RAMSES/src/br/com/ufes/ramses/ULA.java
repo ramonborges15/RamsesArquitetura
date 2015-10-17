@@ -14,13 +14,21 @@ public class ULA {
 	
 	/*Construtor*/
 	public ULA() {
-		
+		super();
+		this.entradaX = (byte)0;
+		this.entradaY = (byte)0;
+		this.saida = (byte)0;
+		this.sel_alu = (byte)0;
+		this.n = (byte)0;
+		this.z = (byte)0;
+		this.c = (byte)0;
 	}
 	
-	public void CargaEntradas(Multiplexador Mux){
+	public void CarregaEntradas(Multiplexador Mux){
 		this.entradaX = Mux.getConteudo();
 		this.entradaY = Mux.getConteudo2();
 	}
+	
 	
 	//TODO Observar se operacao gera Carry, zero ou negativo e setar as variaveis n, c, z 
 	public Byte realizaOperacao() {

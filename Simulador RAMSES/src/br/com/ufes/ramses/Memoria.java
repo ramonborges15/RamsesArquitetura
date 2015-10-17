@@ -10,15 +10,25 @@ public class Memoria {
 	Registrador rem;
 	boolean read, write;
 	byte[] dados = new byte[256];
-	
+	static Integer contadorDeMemoria = 0;
 	//TODO Pensar em uma maneira de receber dados de entrada e alocar na memoria.
 	
+	public  void acessoAMemoria(){
+		if(write == true && read == true){
+			contadorDeMemoria++;
+		}
+	}
+	
 	public void escrita() {
+		if(write == true){
 		dados[rem.conteudo] = rdm.conteudo;
+		}
 	}
 	
 	public void leitura() {
+		if(read == true){
 		rdm.conteudo = dados[rem.conteudo];
+		}
 	}
 	
 		
