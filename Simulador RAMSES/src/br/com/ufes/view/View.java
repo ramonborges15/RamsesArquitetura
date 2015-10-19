@@ -82,8 +82,8 @@ public class View{
 					ULA unidadeAritmetica = new ULA();
 					Memoria mem = new Memoria(rdm, rem);
 					ArquiteturaRamses ramses = new ArquiteturaRamses();
-					ramses.carregaDadosMem(mem, "/home/git/dados.txt");
-					View window = new View(mem.getDados(),ramses, microinstrucoes, ra, rb, rx, raux, mux, estados, pc, ri, mem, unidadeAritmetica);
+					ramses.carregaDadosMem(mem, "dados.txt");
+					View window = new View(ramses, microinstrucoes, ra, rb, rx, raux, mux, estados, pc, ri, mem, unidadeAritmetica);
 					window.frame.setVisible(true);
 				
 				} catch (Exception e) {
@@ -93,16 +93,22 @@ public class View{
 		});
 	}
 	
-	public View(byte[] dados, ArquiteturaRamses ramses, ArrayList<String> microinstrucoes, Registrador ra, Registrador rb, Registrador rx, Registrador raux, Multiplexador mux,
+	public View(ArquiteturaRamses ramses, ArrayList<String> microinstrucoes, Registrador ra, Registrador rb, Registrador rx, Registrador raux, Multiplexador mux,
 			RegistradorEstados estados, RegistradorPC pc, Registrador ri, Memoria mem, ULA unidadeAritmetica) {
-		initialize(dados);
-		btnLoad(ramses, microinstrucoes);
+		initialize();
+		btnCarregaInstrucoes(ramses, microinstrucoes);
 		btnResul(ramses, microinstrucoes, ra, rb, rx, raux, mux, estados, pc, ri, mem, unidadeAritmetica);
+		btnCarregaMemoria(mem.getDados());
 	}
 	
-	public void btnCarregaMemoria() {
+	public void btnCarregaMemoria(byte[] dados) {
 		btnCarregaMem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int i = 0;
+				while(i < 256) {
+					tableMem.setValueAt(Byte.toString(dados[i]), i, 1);
+					i++;
+				}
 			}
 		});
 	}
@@ -112,7 +118,7 @@ public class View{
 		btnDireto.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-            	ramses.carregarValor(microinstrucoes, ra, rb, rx, raux, mux, estados, pc, ri, mem, unidadeAritmetica);
+            	ramses.carregarValor(microinstrucoes, ra, rb, rx, raux, mux, estados, pc, ri, mem, unidadeAritmetica, estados);
             	textPC.setText(Byte.toString(ra.getConteudo()));
         		textRA.setText(Byte.toString(rb.getConteudo()));
         		textRB.setText(Byte.toString(rx.getConteudo()));
@@ -126,11 +132,13 @@ public class View{
         		if(estados.getCarga_Z() == true) {
         			rdbtnZ.setSelected(true);
         		}
+        		
+        		btnCarregaMemoria(mem.getDados());
             }
 		});
 	}
 	
-	public void btnLoad(ArquiteturaRamses ramses, ArrayList<String> microinstrucoes) {
+	public void btnCarregaInstrucoes(ArquiteturaRamses ramses, ArrayList<String> microinstrucoes) {
 		btnCarregaInst.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
@@ -140,7 +148,7 @@ public class View{
 	}
 	
 
-	private void initialize(byte[] dados) {
+	private void initialize() {
 		
 		Vector<String> nomeColuna = new Vector<String>();
 	    nomeColuna.addElement("Indices");
