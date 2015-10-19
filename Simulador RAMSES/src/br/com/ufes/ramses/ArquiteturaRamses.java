@@ -62,7 +62,7 @@ public class ArquiteturaRamses {
 	}
 	
 	public void carregarValor(ArrayList<String> microinstrucoes, Registrador RA,Registrador RB,Registrador RX, Registrador RAUX, Multiplexador MUX,
-			RegistradorEstados Estado, RegistradorPC PC, Registrador RI, Memoria Mem, ULA ALU){
+			RegistradorEstados Estado, RegistradorPC PC, Registrador RI, Memoria Mem, ULA ALU, RegistradorEstados RE){
         
 		for(int i = 0; i < microinstrucoes.size(); i++){
 			char[] letras = microinstrucoes.get(i).toCharArray();
@@ -158,6 +158,7 @@ public class ArquiteturaRamses {
 			RX.CarregaRegistrador(ALU);
 			PC.carregaregistradorPC(ALU);
 			PC.incrementaPC();
+			RE.CarregaBitEstado(ALU);
 			RAUX.CarregaRegistrador(ALU);
 			Mem.rdm.CarregaRegistrador(ALU);
 			Mem.rem.CarregaRegistrador(ALU);

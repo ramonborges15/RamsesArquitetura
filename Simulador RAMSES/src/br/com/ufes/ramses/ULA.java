@@ -5,7 +5,7 @@ public class ULA {
 	Byte entradaX, entradaY;
 	Byte saida;
 	String sel_alu;
-	Byte n, z, c;
+	boolean n, z, c;
 	
 	public static void main(String[] args) {
 		byte a = 4;
@@ -19,9 +19,9 @@ public class ULA {
 		this.entradaX = (byte)0;
 		this.entradaY = (byte)0;
 		this.saida = (byte)0;
-		this.n = (byte)0;
-		this.z = (byte)0;
-		this.c = (byte)0;
+		this.n = false;
+		this.z = false;
+		this.c = false;
 	}
 	
 	public void CarregaEntradas(Multiplexador Mux){
@@ -34,25 +34,67 @@ public class ULA {
 	public void realizaOperacao(String sel_alu) {
 		if(sel_alu.equals("0000")){
 			this.saida = (byte) (entradaX + entradaY);
+			if(this.saida == (byte)0  ){
+				this.z = true;
+			}
+			if(this.saida < (byte) 0 ){
+				this.n = true;
+			}
 			
 		}
 		if(sel_alu.equals("0001")){
 			this.saida = (byte)(entradaX - entradaY);
+			if(this.saida == (byte)0  ){
+				this.z = true;
+			}
+			if(this.saida < (byte) 0 ){
+				this.n = true;
+			}
 		}
 		if(sel_alu.equals("0010")){
 			this.saida = (byte)(entradaX & entradaY);
+			if(this.saida == (byte)0  ){
+				this.z = true;
+			}
+			if(this.saida < (byte) 0 ){
+				this.n = true;
+			}
 		}
 		if(sel_alu.equals("0011")){
 			this.saida = (byte)(entradaY | entradaX);
+			if(this.saida == (byte)0  ){
+				this.z = true;
+			}
+			if(this.saida < (byte) 0 ){
+				this.n = true;
+			}
 		}
 		if(sel_alu.equals("0100")){
 			this.saida = (byte) (~entradaX);
+			if(this.saida == (byte)0  ){
+				this.z = true;
+			}
+			if(this.saida < (byte) 0 ){
+				this.n = true;
+			}
 		}
 		if(sel_alu.equals("0101")){
 			this.saida = (byte)(-entradaX);
+			if(this.saida == (byte)0  ){
+				this.z = true;
+			}
+			if(this.saida < (byte) 0 ){
+				this.n = true;
+			}
 		}
 		if(sel_alu.equals("0110")){
 			this.saida = (byte) (entradaX >> 1);
+			if(this.saida == (byte)0  ){
+				this.z = true;
+			}
+			if(this.saida < (byte) 0 ){
+				this.n = true;
+			}
 		}
 		if(sel_alu.equals("0111")){
 			this.saida = (byte)(entradaY);
@@ -89,27 +131,27 @@ public class ULA {
 	}
 
 
-	public byte getN() {
+	public boolean getN() {
 		return n;
 	}
 
-	public void setN(byte n) {
+	public void setN(boolean n) {
 		this.n = n;
 	}
 
-	public byte getZ() {
+	public boolean getZ() {
 		return z;
 	}
 
-	public void setZ(byte z) {
+	public void setZ(boolean z) {
 		this.z = z;
 	}
 
-	public byte getC() {
+	public boolean getC() {
 		return c;
 	}
 
-	public void setC(byte c) {
+	public void setC(boolean c) {
 		this.c = c;
 	}
 }
