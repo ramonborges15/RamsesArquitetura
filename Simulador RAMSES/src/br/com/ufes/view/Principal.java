@@ -31,7 +31,7 @@ public class Principal {
 		ULA unidadeAritmetica = new ULA();
 		Memoria mem = new Memoria(rdm, rem);
 		ArquiteturaRamses ramses = new ArquiteturaRamses();
-		//
+		
 		//ramses.lerArquivo(microinstrucoes, window.textNomeDoArquivo.getText());
 		ramses.carregarValor(microinstrucoes, ra, rb, rx, raux, mux, estados, pc, ri, mem, unidadeAritmetica);
 			
