@@ -13,6 +13,17 @@ public class Memoria {
 	static Integer contadorDeMemoria = 0;
 	//TODO Pensar em uma maneira de receber dados de entrada e alocar na memoria.
 	
+	public Memoria(Registrador rdm, Registrador rem) {
+		//Seta todas a posições da memoria para 0.
+		int i = 256;
+		while(i > 0) {
+			dados[i-1] = (byte)0;
+		}
+		
+		this.rdm = rdm;
+		this.rem = rem;
+	}
+	
 	public  void acessoAMemoria(){
 		if(write == true || read == true){
 			contadorDeMemoria++;
