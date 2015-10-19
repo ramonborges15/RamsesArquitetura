@@ -60,7 +60,7 @@ public class ULA {
 		}
 				
 	}
-	
+	//
 	//Getters e Setters
 	public byte getEntradaX() {
 		return entradaX;

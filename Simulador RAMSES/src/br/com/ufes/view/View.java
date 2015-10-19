@@ -54,7 +54,7 @@ public class View{
 	private JTable tabela;
 	boolean iniciar;
 
-	
+	//
 	public static void main(String[] args) {
 		ArrayList<String> microinstrucoes = new ArrayList<String>();
 

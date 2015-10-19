@@ -23,7 +23,7 @@ public class Memoria {
 		this.rdm = rdm;
 		this.rem = rem;
 	}
-	//
+	
 	public  void acessoAMemoria(){
 		if(write == true || read == true){
 			contadorDeMemoria++;
