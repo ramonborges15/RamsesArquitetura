@@ -8,8 +8,9 @@ public class ULA {
 	Byte n, z, c;
 	
 	public static void main(String[] args) {
-		Byte a = 4;
-		System.out.println(a>>1);
+		byte a = 4;
+		byte b = 4;
+		
 	}
 	
 	/*Construtor*/
@@ -33,6 +34,7 @@ public class ULA {
 	public void realizaOperacao(String sel_alu) {
 		if(sel_alu.equals("0000")){
 			this.saida = (byte) (entradaX + entradaY);
+			
 		}
 		if(sel_alu.equals("0001")){
 			this.saida = (byte)(entradaX - entradaY);

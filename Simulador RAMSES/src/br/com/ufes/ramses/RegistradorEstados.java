@@ -3,7 +3,7 @@ package br.com.ufes.ramses;
 public class RegistradorEstados {
 	
 	boolean carga_N,carga_Z,carga_C; //byte cargaRegistrador;
-	byte conteudo;
+	
 	
 	/*Construtor*/
 	public RegistradorEstados() {

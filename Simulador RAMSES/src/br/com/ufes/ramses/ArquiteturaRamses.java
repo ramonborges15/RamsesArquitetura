@@ -31,6 +31,26 @@ public class ArquiteturaRamses {
 		
 	}
 	
+	public void carregaDadosMem(Memoria mem, String nome) {
+		//Cria uma lista de String que será o conjunto de todas as microinstrucoes.
+		try { 
+			int i = 0;
+			FileReader arq = new FileReader(nome); 
+			BufferedReader lerArq = new BufferedReader(arq);
+			
+			String linha = lerArq.readLine(); // lê a primeira linha 
+			while (linha != null) { 
+				mem.setDados(i, (byte)Integer.parseInt(linha));
+				linha = lerArq.readLine();
+				i++;
+			}
+			arq.close();
+		
+		} catch (IOException e) { 
+			System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage()); 
+		} System.out.println();
+		
+	}
 	
 	//
 	public void imprimeParcial(Registrador RA,Registrador RB,Registrador RX, RegistradorPC PC){

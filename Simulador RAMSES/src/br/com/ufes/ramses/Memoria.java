@@ -18,11 +18,21 @@ public class Memoria {
 		int i = 256;
 		while(i > 0) {
 			dados[i-1] = (byte)0;
+			i--;
 		}
 		
 		this.rdm = rdm;
 		this.rem = rem;
 	}
+	
+	public  void setDados(int i, byte valor) {
+		dados[i] = valor;
+	}
+	
+	public byte[] getDados() {
+		return this.dados;
+	}
+	
 	
 	public  void acessoAMemoria(){
 		if(write == true || read == true){
