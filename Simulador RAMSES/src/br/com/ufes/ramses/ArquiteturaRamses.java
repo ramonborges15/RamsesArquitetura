@@ -32,7 +32,7 @@ public class ArquiteturaRamses {
 	}
 	
 	
-
+	//
 	public void imprimeParcial(Registrador RA,Registrador RB,Registrador RX, RegistradorPC PC){
 		
 		System.out.println(RA.toString());
