@@ -22,6 +22,18 @@ public class RegistradorEstados {
 		} 
 	}
 	
+	public boolean getConteudoN() {
+		return conteudoN;
+	}
+	
+	public boolean getConteudoZ() {
+		return conteudoZ;
+	}
+	
+	public boolean getConteudoC() {
+		return conteudoC;
+	}
+	
 	public boolean getCarga_N() {
 		return carga_N;
 	}

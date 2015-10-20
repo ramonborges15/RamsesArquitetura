@@ -10,8 +10,7 @@ public class Memoria {
 	Registrador rem;
 	boolean read, write;
 	byte[] dados = new byte[256];
-	static Integer contadorDeMemoria = 0;
-	//TODO Pensar em uma maneira de receber dados de entrada e alocar na memoria.
+	static int contadorDeMemoria = 0;
 	
 	public Memoria(Registrador rdm, Registrador rem) {
 		//Seta todas a posições da memoria para 0.
@@ -20,9 +19,16 @@ public class Memoria {
 			dados[i-1] = (byte)0;
 			i--;
 		}
-		
 		this.rdm = rdm;
 		this.rem = rem;
+	}
+	
+	public  byte getRemConteudo() {
+		return rem.getConteudo();
+	}
+	
+	public  byte getRdmConteudo() {
+		return rdm.getConteudo();
 	}
 	
 	public  void setDados(int i, byte valor) {
@@ -42,17 +48,21 @@ public class Memoria {
 	
 	public void escrita() {
 		if(write == true){
-		dados[rem.conteudo] = rdm.conteudo;
+		dados[rem.getConteudo()] = rdm.getConteudo();
 		}
 	}
 	
 	public void leitura() {
 		if(read == true){
-		rdm.conteudo = dados[rem.conteudo];
+		this.rdm.setConteudo(dados[rem.getConteudo()]);
+		System.out.println("HAO="+ rdm.getConteudo());
 		}
 	}
 	
-		
+	public int getContadorMem() {
+		return contadorDeMemoria;
+	}
+	
 	public boolean getRead() {
 		return read;
 	}

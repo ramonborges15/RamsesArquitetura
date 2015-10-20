@@ -6,6 +6,7 @@ import javax.naming.ldap.Rdn;
 import javax.swing.JFrame;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.TextField;
 import java.awt.BorderLayout;
 
@@ -43,11 +44,11 @@ import br.com.ufes.ramses.RegistradorPC;
 import br.com.ufes.ramses.ULA;
 
 import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 
 public class View{
 
 	public JFrame frame;
-	public JTextField textNomeDoArquivo;
 	public JTextField textRA;
 	public JTextField textRB;
 	public JTextField textRX;
@@ -61,7 +62,10 @@ public class View{
 	public JRadioButton rdbtnN;
 	public JRadioButton rdbtnZ;
 	public JRadioButton rdbtnCarry;
-	boolean iniciar;
+	private JTextField textacessm;
+	private JTextField textacessalu;
+	private JTextField textciclos;
+	static int indice = 0;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -98,12 +102,15 @@ public class View{
 		initialize();
 		btnCarregaInstrucoes(ramses, microinstrucoes);
 		btnResul(ramses, microinstrucoes, ra, rb, rx, raux, mux, estados, pc, ri, mem, unidadeAritmetica);
+		btnppasso(ramses, microinstrucoes, ra, rb, rx, raux, mux, estados, pc, ri, mem, unidadeAritmetica);
 		btnCarregaMemoria(mem.getDados());
 	}
 	
 	public void btnCarregaMemoria(byte[] dados) {
 		btnCarregaMem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnCarregaMem.setEnabled(false);
+				btnCarregaInst.setEnabled(true);
 				int i = 0;
 				while(i < 256) {
 					tableMem.setValueAt(Byte.toString(dados[i]), i, 1);
@@ -113,27 +120,67 @@ public class View{
 		});
 	}
 	
+	public void btnppasso(ArquiteturaRamses ramses, ArrayList<String> microinstrucoes, Registrador ra, Registrador rb, Registrador rx, Registrador raux, Multiplexador mux,
+			RegistradorEstados estados, RegistradorPC pc, Registrador ri, Memoria mem, ULA unidadeAritmetica) {
+		btnPasso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!ramses.getFim()) {
+					ramses.carregarValorpp(indice, microinstrucoes, ra, rb, rx, raux, mux, estados, pc, ri, mem, unidadeAritmetica, estados);
+					textPC.setText(Byte.toString(pc.getConteudo()));
+	        		textRA.setText(Byte.toString(ra.getConteudo()));
+	        		textRB.setText(Byte.toString(rb.getConteudo()));
+	        		textRX.setText(Byte.toString(rx.getConteudo()));
+	        		
+	        		System.out.println("estado"+estados.getCarga_N());
+	        		System.out.println(unidadeAritmetica.getN());
+	        		if(estados.getCarga_N() == true)
+	        			rdbtnCarry.setSelected(unidadeAritmetica.getN());
+	    			if(estados.getCarga_Z() == true)
+	    				rdbtnN.setSelected(unidadeAritmetica.getZ());
+	    			if(estados.getCarga_C() == true)
+	    				rdbtnZ.setSelected(unidadeAritmetica.getC());
+	        		
+	        		btnCarregaMemoria(mem.getDados());
+	        		indice++;
+				}
+	        	else {
+					btnPasso.setEnabled(false);
+					btnDireto.setEnabled(false);
+	        	}
+				textacessm.setText(Integer.toString(mem.getContadorMem()));
+				textacessalu.setText(Integer.toString(unidadeAritmetica.getContadorOp()));
+				textciclos.setText(Integer.toString(ramses.getContCiclos()));
+			}
+		});
+	}
+	
 	public void btnResul(ArquiteturaRamses ramses, ArrayList<String> microinstrucoes, Registrador ra, Registrador rb, Registrador rx, Registrador raux, Multiplexador mux,
 			RegistradorEstados estados, RegistradorPC pc, Registrador ri, Memoria mem, ULA unidadeAritmetica) {
 		btnDireto.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-            	ramses.carregarValor(microinstrucoes, ra, rb, rx, raux, mux, estados, pc, ri, mem, unidadeAritmetica, estados);
-            	textPC.setText(Byte.toString(ra.getConteudo()));
-        		textRA.setText(Byte.toString(rb.getConteudo()));
-        		textRB.setText(Byte.toString(rx.getConteudo()));
-        		textRX.setText(Byte.toString(pc.getConteudo()));
-        		if(estados.getCarga_C() == true) {
-        			rdbtnCarry.setSelected(true);
-        		}
-        		if(estados.getCarga_N() == true) {
-        			rdbtnN.setSelected(true);
-        		}
-        		if(estados.getCarga_Z() == true) {
-        			rdbtnZ.setSelected(true);
-        		}
+            	
+            	ramses.carregarValor(indice, microinstrucoes, ra, rb, rx, raux, mux, estados, pc, ri, mem, unidadeAritmetica, estados);
+            	System.out.println(Byte.toString(ra.getConteudo()));
+            	textPC.setText(Byte.toString(pc.getConteudo()));
+        		textRA.setText(Byte.toString(ra.getConteudo()));
+        		textRB.setText(Byte.toString(rb.getConteudo()));
+        		textRX.setText(Byte.toString(rx.getConteudo()));
         		
+        		if(estados.getCarga_N() == true)
+        			rdbtnCarry.setSelected(unidadeAritmetica.getN());
+    			if(estados.getCarga_Z() == true)
+    				rdbtnN.setSelected(unidadeAritmetica.getZ());
+    			if(estados.getCarga_C() == true)
+    				rdbtnZ.setSelected(unidadeAritmetica.getC());
+    			
         		btnCarregaMemoria(mem.getDados());
+        		btnDireto.setEnabled(false);
+        		btnPasso.setEnabled(false);
+        		
+        		textacessm.setText(Integer.toString(mem.getContadorMem()));
+				textacessalu.setText(Integer.toString(unidadeAritmetica.getContadorOp()));
+				textciclos.setText(Integer.toString(ramses.getContCiclos()));
             }
 		});
 	}
@@ -141,8 +188,11 @@ public class View{
 	public void btnCarregaInstrucoes(ArquiteturaRamses ramses, ArrayList<String> microinstrucoes) {
 		btnCarregaInst.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
-            {
-            	ramses.lerArquivo(microinstrucoes, textNomeDoArquivo.getText());
+            {	
+            	btnCarregaInst.setEnabled(false);
+            	btnDireto.setEnabled(true);
+            	btnPasso.setEnabled(true);
+            	ramses.lerArquivo(microinstrucoes, "instrucoes.txt");
             }
 		});
 	}
@@ -164,7 +214,7 @@ public class View{
 		}
 		
 		scrollPane = new JScrollPane(tableMem);
-		scrollPane.setBounds(376, 102, 105, 162);
+		scrollPane.setBounds(367, 50, 105, 181);
 		
 		frame = new JFrame();
 		frame.getContentPane().add(scrollPane);
@@ -175,72 +225,111 @@ public class View{
 		frame.getContentPane().setLayout(null);
 		
 		btnPasso = new JButton(">>");
-		btnPasso.setBounds(162, 323, 54, 25);
+		btnPasso.setBounds(22, 323, 54, 25);
 		frame.getContentPane().add(btnPasso);
+		btnPasso.setEnabled(false);
 		
 		btnDireto = new JButton("=");
-		btnDireto.setBounds(317, 323, 54, 25);
+		btnDireto.setBounds(94, 323, 54, 25);
 		frame.getContentPane().add(btnDireto);
+		btnDireto.setEnabled(false);
 		
-		btnCarregaInst = new JButton("Carregar");
-		btnCarregaInst.setBounds(421, 25, 99, 25);
+		btnCarregaInst = new JButton("Carregar Instruções");
+		btnCarregaInst.setBounds(185, 323, 176, 25);
 		frame.getContentPane().add(btnCarregaInst);
+		btnCarregaInst.setEnabled(false);
 		
-		textNomeDoArquivo = new JTextField();
-		textNomeDoArquivo.setBounds(227, 28, 182, 19);
-		frame.getContentPane().add(textNomeDoArquivo);
-		textNomeDoArquivo.setColumns(10);
-
+		btnCarregaMem = new JButton("Carga Memoria");
+		btnCarregaMem.setBounds(351, 234, 141, 25);
+		frame.getContentPane().add(btnCarregaMem);
+		
+		rdbtnN = new JRadioButton("N");
+		rdbtnN.setEnabled(false);
+		rdbtnN.setBounds(67, 180, 43, 23);
+		frame.getContentPane().add(rdbtnN);
+		rdbtnN.setEnabled(false);
+		rdbtnN.setSelected(false);
+		
+		rdbtnZ = new JRadioButton("Z");
+		rdbtnZ.setContentAreaFilled(false);
+		rdbtnZ.setBounds(136, 180, 43, 23);
+		frame.getContentPane().add(rdbtnZ);
+		rdbtnZ.setEnabled(false);
+		rdbtnZ.setSelected(false);
+		
+		rdbtnCarry = new JRadioButton("Carry");
+		rdbtnCarry.setBounds(197, 180, 70, 23);
+		frame.getContentPane().add(rdbtnCarry);
+		rdbtnCarry.setEnabled(false);
+		rdbtnCarry.setSelected(false);
+		
 		textRA = new JTextField();
 		textRA.setEditable(false);
-		textRA.setBounds(129, 101, 70, 19);
+		textRA.setBounds(129, 53, 70, 19);
 		frame.getContentPane().add(textRA);
 		textRA.setColumns(10);
 		
 		textRB = new JTextField();
 		textRB.setEditable(false);
-		textRB.setBounds(129, 129, 70, 19);
+		textRB.setBounds(129, 81, 70, 19);
 		frame.getContentPane().add(textRB);
 		textRB.setColumns(10);
 		
 		textRX = new JTextField();
 		textRX.setEditable(false);
-		textRX.setBounds(129, 158, 70, 19);
+		textRX.setBounds(129, 110, 70, 19);
 		frame.getContentPane().add(textRX);
 		textRX.setColumns(10);
 		
 		textPC = new JTextField();
 		textPC.setEditable(false);
-		textPC.setBounds(129, 186, 70, 19);
+		textPC.setBounds(129, 138, 70, 19);
 		frame.getContentPane().add(textPC);
 		textPC.setColumns(10);
-
-		JLabel lblNomeDoArquivo = new JLabel("Nome do Arquivo de Entrada:");
-		lblNomeDoArquivo.setBounds(12, 30, 220, 15);
-		frame.getContentPane().add(lblNomeDoArquivo);
+		
+		textacessm = new JTextField();
+		textacessm.setHorizontalAlignment(SwingConstants.CENTER);
+		textacessm.setEditable(false);
+		textacessm.setBounds(206, 225, 114, 19);
+		frame.getContentPane().add(textacessm);
+		textacessm.setColumns(10);
+		
+		textacessalu = new JTextField();
+		textacessalu.setHorizontalAlignment(SwingConstants.CENTER);
+		textacessalu.setEditable(false);
+		textacessalu.setBounds(206, 253, 114, 19);
+		frame.getContentPane().add(textacessalu);
+		textacessalu.setColumns(10);
+		
+		textciclos = new JTextField();
+		textciclos.setHorizontalAlignment(SwingConstants.CENTER);
+		textciclos.setEditable(false);
+		textciclos.setBounds(206, 282, 114, 19);
+		frame.getContentPane().add(textciclos);
+		textciclos.setColumns(10);
 		
 		JLabel lblRegistradores = new JLabel("REGISTRADORES");
-		lblRegistradores.setBounds(94, 74, 122, 15);
+		lblRegistradores.setBounds(94, 26, 122, 15);
 		frame.getContentPane().add(lblRegistradores);
 		
 		JLabel lblRa = new JLabel("RA:");
-		lblRa.setBounds(75, 103, 48, 15);
+		lblRa.setBounds(75, 55, 48, 15);
 		frame.getContentPane().add(lblRa);
 		
 		JLabel lblRb = new JLabel("RB:");
-		lblRb.setBounds(75, 131, 70, 15);
+		lblRb.setBounds(75, 83, 70, 15);
 		frame.getContentPane().add(lblRb);
 		
 		JLabel lblRx = new JLabel("RX:");
-		lblRx.setBounds(75, 160, 70, 15);
+		lblRx.setBounds(75, 112, 70, 15);
 		frame.getContentPane().add(lblRx);
 		
 		JLabel lblPc = new JLabel("PC:");
-		lblPc.setBounds(75, 188, 48, 15);
+		lblPc.setBounds(75, 140, 48, 15);
 		frame.getContentPane().add(lblPc);
 		
 		JLabel lblMemria = new JLabel("Memória");
-		lblMemria.setBounds(397, 78, 70, 15);
+		lblMemria.setBounds(388, 26, 70, 15);
 		frame.getContentPane().add(lblMemria);
 		
 		JSeparator separator = new JSeparator();
@@ -248,31 +337,23 @@ public class View{
 		frame.getContentPane().add(separator);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(12, 60, 508, 2);
+		separator_1.setBounds(12, 12, 508, 2);
 		frame.getContentPane().add(separator_1);
 		
-		rdbtnN = new JRadioButton("N");
-		rdbtnN.setEnabled(false);
-		rdbtnN.setBounds(64, 245, 43, 23);
-		frame.getContentPane().add(rdbtnN);
-		rdbtnN.setEnabled(false);
-		rdbtnN.setSelected(false);
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(12, 211, 308, 2);
+		frame.getContentPane().add(separator_2);
 		
-		rdbtnZ = new JRadioButton("Z");
-		rdbtnZ.setContentAreaFilled(false);
-		rdbtnZ.setBounds(133, 245, 43, 23);
-		frame.getContentPane().add(rdbtnZ);
-		rdbtnZ.setEnabled(false);
-		rdbtnZ.setSelected(false);
+		JLabel lblNmeroDeAcessos = new JLabel("Nº de Acessos a Memória:");
+		lblNmeroDeAcessos.setBounds(12, 227, 222, 15);
+		frame.getContentPane().add(lblNmeroDeAcessos);
 		
-		rdbtnCarry = new JRadioButton("Carry");
-		rdbtnCarry.setBounds(194, 245, 70, 23);
-		frame.getContentPane().add(rdbtnCarry);
-		rdbtnCarry.setEnabled(false);
-		rdbtnCarry.setSelected(false);
+		JLabel lblNmeroDeOperaes = new JLabel("Nº de Operações na ALU:");
+		lblNmeroDeOperaes.setBounds(12, 254, 222, 16);
+		frame.getContentPane().add(lblNmeroDeOperaes);
 		
-		btnCarregaMem = new JButton("Carga");
-		btnCarregaMem.setBounds(376, 264, 105, 25);
-		frame.getContentPane().add(btnCarregaMem);
+		JLabel lblNDeCiclos = new JLabel("Nº de Ciclos simulados:");
+		lblNDeCiclos.setBounds(12, 282, 187, 15);
+		frame.getContentPane().add(lblNDeCiclos);
 	}
 }

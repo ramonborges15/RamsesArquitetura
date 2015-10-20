@@ -8,7 +8,7 @@ public class RegistradorPC {
 	
 	/*Construtor*/
 	public RegistradorPC() {
-		
+		this.conteudo = 0;
 	}
 	
 	public void carregaregistradorPC(ULA ALU){
@@ -19,8 +19,7 @@ public class RegistradorPC {
 	public void incrementaPC(){
 		if(incrementa == true){
 			this.conteudo = (this.conteudo++);
-		}
-		
+		}	
 	}
 
 	public byte getConteudo() {
@@ -46,6 +45,4 @@ public class RegistradorPC {
 	public void setIncrementa(boolean incrementa) {
 		this.incrementa = incrementa;
 	}
-	
-	//
 }

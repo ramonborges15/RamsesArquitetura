@@ -3,7 +3,7 @@ package br.com.ufes.ramses;
 public class Multiplexador {
 	
 	boolean s1, s2, s3, s4;
-	byte conteudo, conteudo2 ;
+	byte saida, saida2 ;
 	
 	
 	public Multiplexador() {
@@ -11,40 +11,49 @@ public class Multiplexador {
 		this.s2 = false;
 		this.s3 = false;
 		this.s4 = false;
-		this.conteudo = (byte) 0;
+		this.saida = 0;
+		this.saida2 = 0;
 	}
-	public void carregaMultiplexador1(Registrador ra, Registrador rb, Registrador rx) {
+	public void carregaMultiplexador1(Registrador ra, Registrador rb, Registrador rx, ULA alu) {
 		if(this.s1 == false) {
 			if(this.s2 == false) {
-				this.conteudo = ra.getConteudo();
+				setSaida(ra.getConteudo());
 			}else { 
-				this.conteudo = rb.getConteudo();
+				setSaida(rx.getConteudo());
 			}	
-		}else if(this.s2==true){
-				this.conteudo = rx.getConteudo();		
+		}else if(this.s2==false){
+				setSaida(rb.getConteudo());		
 		}
 	}
 	// criei essa funcao para ficar mais legivel, na verdade nao prescisaria
-	public void carregaMultiplexador2(Registrador raux, RegistradorPC pc, Registrador rdm) {
+	public void carregaMultiplexador2(Registrador raux, RegistradorPC pc, Registrador rdm, ULA alu) {
 		if(this.s3 == false){
 			if(this.s4 == false){
-				this.conteudo = raux.getConteudo();
+				setSaida2(raux.getConteudo());
 			}else{ 
-				this.conteudo = pc.getConteudo();
+				setSaida2(rdm.getConteudo());
 			}	
-		}else if(this.s4==true){
-				this.conteudo = rdm.getConteudo();		
+		}else if(this.s4==false){
+				setSaida2(pc.getConteudo());		
 		}
 	}
 	
-	public byte getConteudo() {
-		return conteudo;
+	public void setSaida(byte saida) {
+		this.saida = saida;
 	}
 	
-	public byte getConteudo2() {
-		return conteudo2;
+	public void setSaida2(byte saida2) {
+		this.saida2 = saida2;
 	}
-
+	
+	public byte getSaida() {
+		return saida;
+	}
+	
+	public byte getSaida2() {
+		return saida2;
+	}
+	
 	public boolean getS1() {
 		return s1;
 	}
@@ -72,5 +81,4 @@ public class Multiplexador {
 	public void setS4(boolean s4) {
 		this.s4 = s4;
 	}
-	
 }
