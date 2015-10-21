@@ -74,6 +74,11 @@ public class ArquiteturaRamses {
         
 		for(int i = indice; i < microinstrucoes.size(); i++){
 			char[] letras = microinstrucoes.get(i).toCharArray();
+			if(letras.length <= 21  ){
+				System.out.println("QUantidades de bits erradas");
+					break;
+			}
+				
 			if (letras[0] == '1') {
 				RA.setCargaRegistrador(true);
 			} else
