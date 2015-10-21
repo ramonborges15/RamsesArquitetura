@@ -32,7 +32,7 @@ public class ArquiteturaRamses {
 		
 	}
 	
-	public void carregaDadosMem(Memoria mem, String nome) {
+	public void carregaDadosMem(Memoria mem, String nome, Registrador ra, Registrador rb, Registrador rx, RegistradorPC pc) {
 		//Cria uma lista de String que será o conjunto de todas as microinstrucoes.
 		try { 
 			int i = 0;
@@ -40,6 +40,14 @@ public class ArquiteturaRamses {
 			BufferedReader lerArq = new BufferedReader(arq);
 			
 			String linha = lerArq.readLine(); // lê a primeira linha 
+			ra.setConteudo(Byte.parseByte(linha));
+			linha = lerArq.readLine();
+			rb.setConteudo(Byte.parseByte(linha));
+			linha = lerArq.readLine();
+			rx.setConteudo(Byte.parseByte(linha));
+			linha = lerArq.readLine();
+			pc.setConteudo(Byte.parseByte(linha));
+			
 			while (linha != null) { 
 				mem.setDados(i, (byte)Integer.parseInt(linha));
 				linha = lerArq.readLine();

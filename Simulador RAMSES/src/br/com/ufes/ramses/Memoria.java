@@ -10,6 +10,7 @@ public class Memoria {
 	Registrador rem;
 	boolean read, write;
 	byte[] dados = new byte[256];
+	
 	static int contadorDeMemoria = 0;
 	
 	public Memoria(Registrador rdm, Registrador rem) {
@@ -48,13 +49,21 @@ public class Memoria {
 	
 	public void escrita() {
 		if(write == true){
-		dados[rem.getConteudo()] = rdm.getConteudo();
+			if(rem.getConteudo()<0){
+				dados[rem.getConteudo()&(0x7F) + 128] = rdm.getConteudo();
+			}else{
+				dados[rem.getConteudo()] = rdm.getConteudo();
+			}
 		}
 	}
 	
 	public void leitura() {
 		if(read == true){
-		this.rdm.setConteudo(dados[rem.getConteudo()]);
+			if(rem.getConteudo()<0){
+				this.rdm.setConteudo(dados[rem.getConteudo()&(0x7F) + 128]);
+			}else{
+				this.rdm.setConteudo(dados[rem.getConteudo()]);
+			}
 		System.out.println("HAO="+ rdm.getConteudo());
 		}
 	}
@@ -79,4 +88,8 @@ public class Memoria {
 		this.write = write;
 	}
 
+	
+	
 }
+
+

@@ -33,7 +33,12 @@ public class ULA {
 			if(this.saida < (byte) 0 ){
 				this.n = true;
 			}
-			
+			if(this.entradaX < 0 && this.entradaY < 0){
+				this.c = true;
+				}else if(this.entradaX > 0 && this.entradaY > 0 && this.saida < 0){
+					this.c = true;
+				}
+								
 		}
 		if(sel_alu.equals("0001")){
 			contadorOperacoes++;
@@ -44,6 +49,12 @@ public class ULA {
 			if(this.saida < (byte) 0 ){
 				this.n = true;
 			}
+			if(this.entradaX < 0 & this.entradaY < 0){
+				this.c = true;
+				}else if(this.entradaX > 0 & this.entradaY > 0 & this.saida < 0){
+					this.c = true;
+				}
+			
 		}
 		if(sel_alu.equals("0010")){
 			contadorOperacoes++;

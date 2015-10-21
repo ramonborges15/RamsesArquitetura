@@ -86,7 +86,7 @@ public class View{
 					ULA unidadeAritmetica = new ULA();
 					Memoria mem = new Memoria(rdm, rem);
 					ArquiteturaRamses ramses = new ArquiteturaRamses();
-					ramses.carregaDadosMem(mem, "dados.txt");
+					ramses.carregaDadosMem(mem, "dados.txt",ra,rb,rx,pc);
 					View window = new View(ramses, microinstrucoes, ra, rb, rx, raux, mux, estados, pc, ri, mem, unidadeAritmetica);
 					window.frame.setVisible(true);
 				
@@ -193,7 +193,7 @@ public class View{
             	btnDireto.setEnabled(true);
             	btnPasso.setEnabled(true);
             	ramses.lerArquivo(microinstrucoes, "instrucoes.txt");
-            }
+            	}
 		});
 	}
 	
